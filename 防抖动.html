@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>	</title>
+</head>
+<body>
+  <div id="content" style="height:150px;line-height:150px;text-align:center; color: #fff;background-color:#ccc;font-size:80px;"></div>
+    <script>
+    let num = 1;
+    let content = document.getElementById('content');
+
+    function count() {
+        content.innerHTML = num++;
+    };
+
+    // 非立即执行版
+    // function debounce(func, wait) {
+    //   let timeout;
+    //   return function () {
+    //     let context = this;
+    //     let args = arguments;
+    //     if (timeout) clearTimeout(timeout);
+    //     timeout = setTimeout(() => {
+    //         func.apply(context, args)
+    //     }, wait);
+    //   }
+
+    // }
+    // content.onmousemove = debounce(count,1000);
+
+    // 立即执行版
+     function debounce(func,wait) {
+       let timeout;
+       return function () {
+          let context = this;
+          let args = arguments;
+          if (timeout) clearTimeout(timeout);
+          let callNow = !timeout;
+          timeout = setTimeout(() => {
+             timeout = null;
+          }, wait)
+
+         if (callNow) func.apply(context, args)
+       }
+    }
+    content.onmousemove = debounce(count,3000);
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	async function text() {
+	  const v=await taleLong()
+	  console.log(v)
+	}
+	function taleLong() {
+		return new Promise((resolve) => {
+			setTimeout(()=> {
+              resolve('完成')
+			}, 3000)
+		})
+	}
+
+	// const res =  text()
+	// console.log(res)
+	// res.then((res)=> {
+ //      console.log(res)
+	// }).catch((res)=> {
+ //      console.log(res)
+	// })
+	
+    async function f() {
+    	try {
+          await new Promise(function(resolve, reject){
+          	throw new Error('出错了')
+          })
+    	} catch(e){
+          console.log(e, 'e')
+    	}
+    }
+    f().then((res) => {
+    	console.log(res, 'res1')
+    }).catch((res)=> {
+    	console.log(res, 'res2')
+    })
+</script>
+</html>

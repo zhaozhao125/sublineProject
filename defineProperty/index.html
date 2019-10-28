@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js 图片转base64方式</title>
+</head>
+<body>
+  <p id="container1"></p>
+  <script>
+    getBase64("http://cmsres.test.dianzhenkeji.com/anonymous/2019/9/24/1176435592888717312.png")
+    function getBase64(imgUrl) {
+      window.URL = window.URL || window.webkitURL;
+      console.log(window.URL)
+      var xhr = new XMLHttpRequest();
+      xhr.open("get", imgUrl, true);
+      // 至关重要
+      xhr.responseType = "blob";
+      xhr.onload = function () {
+        if (this.status == 200) {
+          //得到一个blob对象
+          var blob = this.response;
+          // 至关重要
+          let oFileReader = new FileReader();
+          oFileReader.onloadend = function (e) {
+            let base64 = e.target.result;
+            // console.log("方式一》》》》》》》》》", base64)
+          };
+          oFileReader.readAsDataURL(blob);
+          // console.log(blob, 'blob')
+          // //====为了在页面显示图片，可以删除====
+          // var img = document.createElement("img");
+          // img.onload = function (e) {
+          //   window.URL.revokeObjectURL(img.src); // 清除释放
+          // };
+          // let src = window.URL.createObjectURL(blob);
+          // img.src = src
+          // document.getElementById("container1").appendChild(img);
+          //====为了在页面显示图片，可以删除====
+
+        }
+      }
+      xhr.send();
+    }
+    var str = 'window';  
+ 
+const obj = {
+    str:'obj',
+    fn: ()=>{
+	console.log(this.str);	
+    },
+    fn2: function(){
+	console.log(this.str, '当前词法作用域中的this')
+	return {
+	    str: 'newObj',
+	    fn: ()=>{
+		console.log(this.str);	
+	    }	
+	}
+    }
+}
+ 
+obj.newFn = ()=>{
+    console.log(this.str);	
+}
+ 
+obj.fn();
+obj.newFn();
+ 
+var newObj = obj.fn2();
+newObj.fn()
+var str1 = '123'
+console.log(str1.indexOf('2'))
+  </script>
+</body>
+</html>

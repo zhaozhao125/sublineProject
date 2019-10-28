@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+var Thunk = function(fn){
+  return function (){
+    var args = Array.prototype.slice.call(arguments);
+    console.log(args, 'args')
+    return function (callback){
+      args.push(callback);
+      return fn.apply(this, args);
+    }
+  };
+};
+// var readFileThunk = Thunk(function() {
+// 	console.log(123)
+// });
+// // readFileThunk(fileA)(callback);
+// console.log(readFileThunk)
+// // readFileThunk('a')
+// console.log(readFileThunk('a', 'b')(function() {
+// 	console.log(456)
+// }))
+function f(a, cb) {
+  cb(a);
+}
+const ft = Thunk(f);
+
+console.log(ft, 'ft')
+console.log(ft(1),  '1')
+// ft(1)(console.log)
+</script>
+</html>

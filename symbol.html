@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<span>
+		欧式的加偶金额佛我就oj<em>偶尔</em>
+	</span>
+</body>
+ <script>
+ 	// let arr = [{a:1}, {b:2}]
+ 	// for (let ele of arr.values()) {
+  //     console.log(ele)
+ 	// }
+ 	// var myIterable = {}
+ 	// myIterable[Symbol.iterator] = function *() {
+ 	// 	yield 1;
+ 	// 	yield 2;
+ 	// 	yield 3;
+ 	// }
+ 	// console.log([...myIterable])
+ 	// for (var val of myIterable) {
+  //     console.log(val)
+ 	// }
+ 	// let obj = {
+ 	// 	a: 1,
+ 	// 	b:2
+ 	// }
+ 	// console.log('a' in obj)
+ 	// console.log(obj.hasOwnProperty('a'))
+ 	// function *test() {
+ 	//    yield timer()
+ 	//    console.log(2)
+ 	// }
+ 	// var a = test()
+ 	// console.log(a.next())
+ 	// 	// console.log(a.next())
+ 	// function timer() {
+ 	// 	window.setTimeout(()=> {
+  //         console.log(123)
+  //         a.next()
+ 	// 	}, 2000)
+ 	// }
+ 	function* gen(x) {
+      try {
+      	var y = yield x+2;
+
+      } catch(e){
+        console.log(e)
+      }
+      return y
+ 	}
+ 	var g = gen(1)
+ 	console.log(g.next())
+ 	g.throw('出错了')
+ </script>
+</html>

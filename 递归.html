@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// var content = [
+	//   {
+        
+	//   }
+	// ]
+ //    // 递归求和
+	// function sum (n) {
+	// 	console.log(123)
+ //       if (n==1) {
+ //         return n
+ //       }
+ //       return sum(n-1) + n
+	// }
+	// console.log(sum(10))
+
+	// function sum2(n) {
+ //      if(n==1) {
+
+ //      }
+	// }
+	let person = [
+     {id: 0, name: "小明"},
+     {id: 1, name: "小张"},
+     {id: 2, name: "小李"},
+     {id: 3, name: "小孙"},
+     {id: 1, name: "小周"},
+     {id: 2, name: "小陈"},   
+];
+
+let obj = {};
+
+person = person.reduce((cur,next) => {
+	console.log(cur,next)
+    obj[next.id] ? "" : obj[next.id] = true && cur.push(next);
+    return cur;
+},[]) //设置cur默认类型为数组，并且初始值为空的数组
+console.log(person);
+console.log(obj)
+</script>
+</html>
