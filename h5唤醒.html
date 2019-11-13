@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>1111</div>
+  <a href="https://www.baidu.com/?tn=78040160_26_pg&ch=1">支付宝</a>
+</body>
+<script>
+  /** * 启动ios APP地址 */
+
+  var iosAppUrl = "";
+
+  /** * 启动安卓 APP地址 */
+
+  var androidAppUrl = "alipay://";
+
+  /** * AppStore下载地址 */
+
+  var iosAppStore = "";
+
+  /** * 安卓安装包下载地址 */
+
+  var androidApk = "http://www.affbs.cn/html/app/xiazai.html";
+
+  /** * QQ应用宝 */
+
+  var appQQ = "";
+
+  /**
+
+  * 移动终端浏览器版本信息
+
+  * @method detectVersion 版本检测
+
+  * @return {返回值类型} isAndroid, isIOS, isIOS9 true或false
+
+  */
+
+  function infoMore() {
+
+    var browser = {
+
+      versions: function () {
+
+        var u = navigator.userAgent,
+
+          app = navigator.appVersion;
+
+        return { //移动终端浏览器版本信息
+
+          weixin: u.match(/MicroMessenger/i) == 'MicroMessenger', //是否为微信浏览器
+
+          trident: u.indexOf('Trident') > -1, //IE内核
+
+          presto: u.indexOf('Presto') > -1, //opera内核
+
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+
+          iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+
+          // qq: u.match(/\sQQ/i) !== null, //是否QQ
+
+          //Safari: u.indexOf('Safari') > -1,//Safari浏览器,
+
+        };
+
+      }(),
+
+      language: (navigator.browserLanguage || navigator.language).toLowerCase()
+
+    }
+
+    if (browser.versions.weixin && browser.versions.android) { //微信安卓
+
+      alert("微信安卓");
+
+      openApp(androidAppUrl, androidApk)
+
+    } else if (browser.versions.android && browser.versions.webKit) { //安卓
+
+      alert("安卓");
+
+      openApp(androidAppUrl, androidApk)
+
+    } else if (browser.versions.weixin && (browser.versions.ios || browser.versions.iPhone || browser.versions.iPad)) {
+      //微信IOS
+
+      alert("微信IOS");
+
+      openApp(iosAppUrl, iosAppStore)
+
+    } else if (browser.versions.ios || browser.versions.iPhone || browser.versions.iPad) { //IOS
+
+      alert("IOS");
+
+      openApp(iosAppUrl, iosAppStore)
+
+    }
+
+  }
+
+  /**
+
+  * 版本检测
+
+  * @method detectVersion 版本检测
+
+  * @return {返回值类型} isAndroid, isIOS, isIOS9 true或false
+
+  */
+
+  function detectVersion() {
+
+    let isAndroid, isIOS, isIOS9, version,
+
+      u = navigator.userAgent,
+
+      ua = u.toLowerCase();
+
+    if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) { //android终端或者uc浏览器
+
+      //Android系统
+
+      isAndroid = true
+
+    }
+
+    if (ua.indexOf("like mac os x") > 0) {
+
+      //ios
+
+      var regStr_saf = /os [\d._]*/gi;
+
+      var verinfo = ua.match(regStr_saf);
+
+      version = (verinfo + "").replace(/[^0-9|_.]/ig, "").replace(/_/ig, ".");
+
+    }
+
+    var version_str = version + "";
+
+    if (version_str != "undefined" && version_str.length > 0) {
+
+      version = parseInt(version)
+
+      if (version >= 8) {
+
+        // ios9以上
+
+        isIOS9 = true
+
+      } else {
+
+        isIOS = true
+
+      }
+
+    }
+
+    return {
+      isAndroid,
+      isIOS,
+      isIOS9
+    }
+
+  }
+
+  /**
+
+  * 判断手机上是否安装了app，如果安装直接打开url，如果没安装，执行callback
+
+  * @method openApp 打开App
+
+  * @param {参数类型} url 启动app地址
+
+  * @param {参数类型} callback 回调地址app(下载地址)
+
+  * @return {返回值类型} 返回值说明
+
+  */
+
+  function openApp(url, callback) {
+
+    let {
+      isAndroid,
+      isIOS,
+      isIOS9
+    } = detectVersion()
+
+    if (isIOS) {
+
+      var timeout, t = 4000,
+        hasApp = true;
+
+      var openScript = setTimeout(function () {
+
+        if (!hasApp) {
+
+          callback && (window.location.href = callback);
+
+        }
+
+        document.body.removeChild(ifr);
+
+      }, 5000)
+
+      var t1 = Date.now();
+
+      var ifr = document.createElement("iframe");
+
+      ifr.setAttribute('src', url);
+
+      ifr.setAttribute('style', 'display:none');
+
+      document.body.appendChild(ifr);
+
+      timeout = setTimeout(function () {
+
+        var t2 = Date.now();
+
+        if (t2 - t1 < t + 100) {
+          hasApp = false;
+        }
+      }, t);
+    }
+    if (isIOS9) {
+      location.href = url;
+      setTimeout(function () {
+        callback &&
+          (window.location.href = callback);
+      }, 250);
+      setTimeout(function () {
+        location.reload();
+      }, 1000);
+    }
+  }
+  // infoMore()
+</script>
+
+</html>

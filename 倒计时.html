@@ -1,43 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta name="author" content="http://www.softwhy.com/" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-<title>蚂蚁部落</title>
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
-#ant {
-  width:150px;
-  height:50px;
-  color:red;
-  text-align:center;
-  line-height:50px;
-  margin:0px auto;
-}
-</style>
-<script>
-window.onload = function () {
-  var odiv = document.getElementById("ant");
-  var count = 60;
-    odiv.innerHTML=count;
-  var timer = null;
-  timer = setInterval(function () {
-    if (count > 0) {
-      count = count - 1;
-      odiv.innerHTML = count;
-    }
-    else {
-      clearInterval(timer);
-    }
-  }, 1000);
-}
-</script>
-</head> 
-<body> 
-<div id="ant"></div>
-</body> 
+    <head>
+        <meta charset="utf-8">
+        <title>字体图标的使用、伪元素content的使用</title>
+        <style>
+            .myFont{
+                font-family: iconfont;
+            }
+            /* 伪元素before content可以放置内容:笑脸，导出 */
+            .smile::before{
+                content:"\\e641";
+                color: red;
+                font-size: 50px;
+            }
+            .output::before{
+                content:"\\e640";
+                color: blue;
+                font-size: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <span class="myFont">@#xe641;</span>
+        <!-- 伪元素smile的使用 -->
+        <span class="myFont smile"></span>
+        <span class="myFont output"></span>
+    </body>
 </html>

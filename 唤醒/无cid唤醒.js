@@ -1,7 +1,7 @@
 (function (win) {
   var WeakUpApp = win.WeakUpApp = function (appUrl, downLoadUrl) {
     if (!(this instanceof WeakUpApp)) return new WeakUpApp(appUrl, downLoadUrl);
-    this.appUrl = appUrl || 'weixin://';
+    this.appUrl = appUrl || 'alipay://';
     //this.downloadUrl = downLoadUrl || 'http://www.affbs.cn/html/app/discovery/android/share.html';
     this.downloadUrl = downLoadUrl || 'http://www.affbs.cn/html/app/xiazai.html';
     this.init();
