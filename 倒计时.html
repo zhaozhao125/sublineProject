@@ -26,4 +26,67 @@
         <span class="myFont smile"></span>
         <span class="myFont output"></span>
     </body>
+    <script>
+             getSubmitData() {
+      let resoultObj = Object.assign(
+        this.$refs.baseForm.formModel,
+        this.$refs.otherForm.formModel,
+        this.docContentForm,
+        this.adddocSet
+      );
+      // 获取扩展字段的值
+      let extendsFields = [];
+      // 扩展字段时间处理
+      if (this.extendsList.length) {
+        extendsFields = this.extendsList.map(ele => {
+          if (ele.type == "datetime") {
+            if (resoultObj[ele.label]) {
+              return {
+                label: ele.label,
+                fieldValue: handleDate(resoultObj[ele.label])
+              };
+            } else {
+              return {
+                label: ele.label,
+                fieldValue: resoultObj[ele.label]
+              };
+            }
+          } else {
+            return {
+              label: ele.label,
+              fieldValue: resoultObj[ele.label]
+            };
+          }
+        });
+      }
+      // 发布时间转化
+      if (resoultObj.publishTime) {
+        resoultObj.publishTime = handleDate(resoultObj.publishTime);
+      }
+      resoultObj.extFieldsList = extendsFields;
+      resoultObj.channelId = this.channelId;
+      // 标签字段处理
+      let chooseTags = [];
+      if (resoultObj.tagIds) {
+        resoultObj.tagIds.forEach(ele => {
+          this.tagList.forEach(son => {
+            if (ele == son.value) {
+              chooseTags.push({
+                tagId: son.value,
+                tagName: son.label
+              });
+            }
+          });
+        });
+      }
+      resoultObj.tagIdsList = chooseTags;
+      resoultObj.articleType = 0;
+      delete resoultObj.set;
+      delete resoultObj.tagIds;
+      if (!resoultObj.contentBody) {
+        resoultObj.contentBody = "";
+      }
+      return resoultObj;
+    },
+    </script>
 </html>
